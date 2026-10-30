@@ -1,0 +1,1607 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d6efd">
+
+    <title>DrugDose | Medical Information Platform</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- INTRO ANIMATION -->
+    <div id="intro" class="intro">
+        <div class="intro-logo">
+            <div class="logo-icon">✚</div>
+            <h1>Drug<span>Dose</span></h1>
+            <p>SMART MEDICAL INFORMATION</p>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+   
+<header class="header">
+
+    <a href="#" class="brand" onclick="showPage('home'); return false;">
+        <span class="brand-icon">✚</span>
+        Drug<span>Dose</span>
+    </a>
+
+    <button class="menu-toggle"
+            onclick="toggleMenu()"
+            aria-label="Toggle navigation menu">
+        ☰
+    </button>
+
+
+<nav id="navigation">
+    <a href="#" data-page="home" onclick="showPage('home'); return false;">Home</a>
+
+    <a href="#" data-page="calculator" onclick="showPage('calculator'); return false;">Dose Calculator</a>
+
+    <a href="#" data-page="drug-library" onclick="showPage('drug-library'); return false;">Drug Library</a>
+
+    <a href="#" data-page="safety" onclick="showPage('safety'); return false;">Safety</a>
+
+    <a href="#" data-page="resources" onclick="showPage('resources'); return false;">Resources</a>
+
+    <a href="#" data-page="about" onclick="showPage('about'); return false;">About Us</a>
+
+    <a href="#" data-page="faq" onclick="showPage('faq'); return false;">FAQs</a>
+</nav>
+
+
+</header>
+
+
+    <main>
+
+        <!-- HOME PAGE -->
+        
+<!-- HOME PAGE --> 
+<section id="home"class="page active">
+    <!-- HERO SECTION -->
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <span class="tag">✚ MEDICAL EDUCATION PLATFORM</span>
+
+            <h1>
+                Smarter Medication
+                <span>Information & Safety</span>
+            </h1>
+
+            <p>
+                Discover educational medication resources,
+                understand medicine safety and explore
+                trusted medical learning materials in one place.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn"
+                onclick="showPage('drug-library')">
+                    Explore Drug Library →
+                </button>
+
+                <button class="secondary-btn"
+                onclick="showPage('safety')">
+                    Explore Safety Center
+                </button>
+
+            </div>
+
+            <div class="hero-note">
+                <span>✓</span>
+                Educational information for learning and awareness
+            </div>
+
+        </div>
+
+        <div class="hero-visual">
+
+            <div class="medical-circle">
+                <span>✚</span>
+                <div class="floating-pill">💊</div>
+                <div class="floating-cross">✚</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLATFORM INTRODUCTION -->
+    <div class="features">
+
+        <h2>Everything in One Place</h2>
+
+        <p class="section-subtitle">
+            Explore the educational tools and resources available on DrugDose.
+        </p>
+
+        <div class="feature-grid">
+
+            <div class="feature-card"
+            onclick="showPage('calculator')">
+
+                <div class="feature-icon">🧮</div>
+
+                <h3>Educational Calculator</h3>
+
+                <p>
+                    Explore the patient information interface.
+                    It does not calculate or recommend medication doses.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card"
+            onclick="showPage('drug-library')">
+
+                <div class="feature-icon">💊</div>
+
+                <h3>Drug Library</h3>
+
+                <p>
+                    Explore the medication learning interface
+                    and educational references.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card"
+            onclick="showPage('safety')">
+
+                <div class="feature-icon">🛡️</div>
+
+                <h3>Medication Safety</h3>
+
+                <p>
+                    Learn about medicine safety,
+                    allergies and important precautions.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card"
+            onclick="showPage('resources')">
+
+                <div class="feature-icon">📚</div>
+
+                <h3>Learning Resources</h3>
+
+                <p>
+                    Access educational websites
+                    and medical learning materials.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<!-- FIREBASE FEATURED RESOURCES -->
+<div class="features">
+
+    <h2>Featured Learning Resources</h2>
+
+    <p class="section-subtitle">
+        Explore educational lessons from the DrugDose library.
+    </p>
+
+    <div id="homeEducationalContent" class="feature-grid">
+        <p>Loading learning resources...</p>
+    </div>
+
+</div>
+
+<!-- QUICK ACCESS -->
+<div class="quick-access">
+
+    <h2>Quick Access</h2>
+
+    <p>Find what you need quickly.</p>
+
+    <div class="quick-access-grid">
+
+        <button onclick="showPage('safety')">
+            🛡️ Safety Center
+        </button>
+
+        <button onclick="showPage('resources')">
+            📚 Resources
+        </button>
+
+        <button onclick="showPage('about')">
+            ℹ️ About DrugDose
+        </button>
+
+        <button onclick="showPage('faq')">
+            ❓ FAQs
+        </button>
+
+    </div>
+
+</div>
+
+
+    <!-- WHY DRUGDOSE -->
+    <div class="features">
+
+        <h2>Why DrugDose?</h2>
+
+        <p class="section-subtitle">
+            Designed to make medical learning easier to explore.
+        </p>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Easy Access</h3>
+                <p>Explore educational information from one platform.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3>Simple Learning</h3>
+                <p>Understand general medication topics in simple language.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔎</div>
+                <h3>Explore Resources</h3>
+                <p>Discover external educational and medical references.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Privacy Awareness</h3>
+                <p>Learn about responsible handling of personal information.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- IMPORTANT NOTICE -->
+    <div class="notice home-notice">
+
+        <h3>⚠️ Important Medical Notice</h3>
+
+        <p>
+            DrugDose is an educational prototype, not a medical service.
+            It does not provide diagnoses, prescriptions or medication
+            dose recommendations. Never enter real patient information.
+            Consult a qualified healthcare professional for medical decisions.
+        </p>
+
+        <button class="secondary-btn"
+        onclick="showPage('disclaimer')">
+            Read Full Disclaimer →
+        </button>
+
+    </div>
+
+</section>
+
+        <!-- CALCULATOR PAGE -->
+
+        <section id="calculator" class="page">
+
+            <div class="page-heading">
+
+                <span class="tag">EDUCATIONAL TOOL</span>
+
+                h1>
+
+                <h1>Medication Safety Learning Center</h1>
+<p>
+    Explore general medication safety concepts for adult and pediatric care.
+</p>
+
+            </div>
+
+            <div class="calculator-card">
+
+                <h2>Select Patient Category</h2>
+
+                
+
+                    
+<div class="category-buttons">
+
+    <button
+    id="adultTab"
+        type="button"
+        class="category-btn selected"
+        onclick="selectCategory('adult')">
+        👤 Adult Health Education
+    </button>
+
+    <button
+    id="childTab"
+        type="button"
+        class="category-btn"
+        onclick="selectCategory('child')">
+        🧒 Pediatric Health Education
+    </button>
+
+</div>
+
+
+                </div>
+
+
+                <form id="patientForm">
+
+                    <!-- PATIENT INFORMATION -->
+
+                   
+<h3>Medication Safety Education</h3>
+
+<div class="safety-intro">
+    <div class="safety-intro-icon">🛡️</div>
+
+    <div>
+        <h3>Learn Before Making Decisions</h3>
+        <p>
+            Explore general medication safety information.
+            This educational tool does not calculate doses,
+            assess individual patients, or recommend medicines.
+        </p>
+    </div>
+</div>
+
+<div class="form-grid">
+
+    <div class="form-group">
+        <label for="learningCategory">Learning Category</label>
+        <select id="learningCategory">
+            <option value="adult">Adult Health Education</option>
+            <option value="pediatric">Pediatric Health Education</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="learningTopic">Choose a Topic</label>
+        <select id="learningTopic">
+            <option value="">Select a topic</option>
+            <option value="health-literacy">Health Literacy</option>
+            <option value="medication-safety">Medication Safety</option>
+            <option value="health-labels">Understanding Health Labels</option>
+            <option value="medicine-storage">Safe Medicine Storage</option>
+            <option value="allergy-awareness">Allergy Awareness</option>
+        </select>
+    </div>
+
+</div>
+
+<div class="safety-disclaimer">
+    <h3>Important</h3>
+    <p>
+        This is a learning interface only. It does not provide
+        patient-specific medical advice or medication doses.
+        Consult a qualified healthcare professional for medical decisions.
+    </p>
+</div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="ageUnit">Age Unit</label>
+
+                            <select id="ageUnit">
+
+                                <option value="years">Years</option>
+
+                                <option value="months">Months</option>
+
+                                <option value="days">Days</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="weight">Weight (kg)</label>
+
+                            <input
+                            type="number"
+                            id="weight"
+                            placeholder="Enter weight"
+                            min="0.1"
+                            step="any"
+                            required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="height">Height (cm)</label>
+
+                            <input
+                            type="number"
+                            id="height"
+                            placeholder="Enter height"
+                            min="1"
+                            step="any"
+                            required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="sex">
+                                Sex (if relevant to drug guidance)
+                            </label>
+
+                            <select id="sex">
+
+                                <option value="">Select</option>
+
+                                <option value="male">Male</option>
+
+                                <option value="female">Female</option>
+
+                                <option value="unspecified">
+                                    Prefer not to specify
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="condition">Medical Condition</label>
+
+                            <input
+                            type="text"
+                            id="condition"
+                            placeholder="Enter medical condition">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MEDICATION INFORMATION -->
+
+                    <h3>Medication Information</h3>
+
+                    <div class="form-grid">
+
+                        <!-- MANUAL DRUG SEARCH -->
+
+                        <div class="form-group">
+
+                            <label for="drug">Search Drug Name</label>
+
+                            <input
+                            type="text"
+                            id="drug"
+                            list="drugOptions"
+                            placeholder="Type medication name..."
+                            autocomplete="off"
+                            required>
+
+                            <datalist id="drugOptions">
+                            </datalist>
+
+                            <small>
+                                Type a drug name manually or select from the list.
+                            </small>
+
+                        </div>
+
+
+                        <!-- DRUG DROPDOWN -->
+
+                        <div class="form-group">
+
+                            <label for="drugSelect">
+                                Select Drug from List
+                            </label>
+
+                            <select
+                            id="drugSelect"
+                            onchange="selectDrug(this.value)">
+
+                                <option value="">
+                                    Select a medication
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- DRUG CATEGORY -->
+
+                        <div class="form-group">
+
+                            <label for="drugCategory">Drug Category</label>
+
+                            <select id="drugCategory">
+
+                                <option value="">Select category</option>
+
+                                <option value="antibiotics">
+                                    Antibiotics
+                                </option>
+
+                                <option value="pain-relief">
+                                    Pain Relief
+                                </option>
+
+                                <option value="allergy">
+                                    Allergy Medicines
+                                </option>
+
+                                <option value="antiviral">
+                                    Antiviral Medicines
+                                </option>
+
+                                <option value="antifungal">
+                                    Antifungal Medicines
+                                </option>
+
+                                <option value="diabetes">
+                                    Diabetes Medicines
+                                </option>
+
+                                <option value="heart">
+                                    Heart Medicines
+                                </option>
+
+                                <option value="other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- DRUG FORM -->
+
+                        <div class="form-group">
+
+                            <label for="drugForm">Drug Form</label>
+
+                            <select id="drugForm">
+
+                                <option value="">Select form</option>
+
+                                <option value="tablet">Tablet</option>
+
+                                <option value="capsule">Capsule</option>
+
+                                <option value="oral-liquid">Oral liquid</option>
+
+                                <option value="injection">Injection</option>
+
+                                <option value="cream">Cream</option>
+
+                                <option value="other">Other</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MEDICAL CHECKS -->
+
+                    <h3>Important Medical Checks</h3>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="allergy">
+                                Known Drug Allergies
+                            </label>
+
+                            <select id="allergy" required>
+
+                                <option value="">Select</option>
+
+                                <option value="none">
+                                    None known
+                                </option>
+
+                                <option value="yes">
+                                    Yes
+                                </option>
+
+                                <option value="unknown">
+                                    Unknown
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="kidney">Kidney Function</label>
+
+                            <select id="kidney" required>
+
+                                <option value="">Select</option>
+
+                                <option value="normal">
+                                    Documented normal
+                                </option>
+
+                                <option value="impaired">
+                                    Impaired
+                                </option>
+
+                                <option value="unknown">
+                                    Unknown / Not assessed
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="liver">Liver Function</label>
+
+                            <select id="liver" required>
+
+                                <option value="">Select</option>
+
+                                <option value="normal">
+                                    Documented normal
+                                </option>
+
+                                <option value="impaired">
+                                    Impaired
+                                </option>
+
+                                <option value="unknown">
+                                    Unknown / Not assessed
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="otherMeds">
+                                Other Medications
+                            </label>
+
+                            <input
+                            type="text"
+                            id="otherMeds"
+                            placeholder="List other medications">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                    type="submit"
+                    class="primary-btn full-btn">
+
+                        Assess Patient Information →
+
+                    </button>
+
+                </form>
+
+
+                <!-- RESULT -->
+
+                <div
+                id="result"
+                class="result hidden"
+                aria-live="polite">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DRUG LIBRARY -->
+
+        
+     
+<!-- DRUG LIBRARY PAGE -->
+<section id="drug-library" class="page">
+
+    <div class="page-heading">
+        <span class="tag">MEDICATION INFORMATION</span>
+        <h1>Drug Library</h1>
+        <p>
+            Explore educational medication information
+            through established medical references.
+        </p>
+    </div>
+
+    <div class="simple-card">
+
+        <h2>Search Medication</h2>
+
+        <p>
+            Enter a medication name to explore available
+            reference resources.
+        </p>
+
+        
+<div class="library-search">
+    <input
+        type="text"
+        id="drugSearch"
+        placeholder="Search educational topics..."
+        autocomplete="off"
+        aria-label="Search educational topics"
+    >
+    <button
+        type="button"
+        class="primary-btn"
+        id="educationalSearchButton"
+    >
+        Search
+    </button>
+    <button
+        type="button"
+        class="secondary-btn"
+        id="clearEducationalSearch"
+    >
+        Clear
+    </button>
+</div>
+
+        <div id="drugSearchResult" aria-live="polite"></div>
+        <div id="educationalContent">
+    <p>Loading educational resources...</p>
+</div>
+
+        <div class="library-categories">
+
+            <h3>Explore Information Categories</h3>
+
+            <div class="category-grid">
+
+                <button type="button" onclick="selectLibraryCategory('General Information')">
+                    General Information
+                </button>
+
+                <button type="button" onclick="selectLibraryCategory('Uses & Purposes')">
+    Uses and Purpose
+</button>
+
+<button type="button" onclick="selectLibraryCategory('Warnings & Precautions')">
+    Warnings and Precautions
+</button>
+                <button type="button" onclick="selectLibraryCategory('Side Effects')">
+                    Side Effects
+                </button>
+
+                <button type="button" onclick="selectLibraryCategory('Interactions')">
+                    Interactions
+                </button>
+
+                <button type="button" onclick="selectLibraryCategory('Storage Information')">
+                    Storage Information
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="selectedCategory" class="notice" aria-live="polite">
+            Select a category to explore its information status.
+        </div>
+
+        <div class="history-area">
+            <h3>Recent Searches</h3>
+            <ul id="drugSearchHistory"></ul>
+        </div>
+
+    </div>
+
+
+    <!-- TRUSTED REFERENCES -->
+    <div class="features">
+
+        <h2>Trusted Medical References</h2>
+
+        <p class="section-subtitle">
+            Visit established sources for medication information.
+        </p>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>MedlinePlus</h3>
+                <p>
+                    Patient-friendly information about medicines
+                    and health topics.
+                </p>
+                <a href="https://medlineplus.gov/druginformation.html"
+                   target="_blank" rel="noopener noreferrer">
+                    Visit MedlinePlus →
+                </a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🏥</div>
+                <h3>NHS Medicines</h3>
+                <p>
+                    General medicine information and safety guidance.
+                </p>
+                <a href="https://www.nhs.uk/medicines/"
+                   target="_blank" rel="noopener noreferrer">
+                    Visit NHS →
+                </a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>DailyMed</h3>
+                <p>
+                    Official US medicine labeling information.
+                </p>
+                <a href="https://dailymed.nlm.nih.gov/dailymed/"
+                   target="_blank" rel="noopener noreferrer">
+                    Visit DailyMed →
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="notice">
+        <h3>Important Information</h3>
+        <p>
+            DrugDose does not currently have a verified medication
+            database. External references are independent resources.
+            Their information may differ by country and product.
+            This website does not provide medication doses or
+            treatment recommendations.
+        </p>
+    </div>
+
+</section>
+
+
+        <!-- SAFETY PAGE -->
+
+        
+<!-- SAFETY PAGE -->
+
+ <section id="safety" class="page">
+    <div class="page-heading">
+
+        <span class="tag">PATIENT PROTECTION</span>
+
+        <h1>Medication Safety Center</h1>
+
+        <p>
+            Learn about important medication safety considerations
+            and when professional guidance is needed.
+        </p>
+
+    </div>
+
+    <div class="safety-intro">
+
+        <div class="safety-intro-icon">🛡️</div>
+
+        <div>
+            <h2>Safety Comes First</h2>
+
+            <p>
+                Medication decisions depend on many factors.
+                Never start, stop, or change a medication without
+                appropriate professional guidance.
+            </p>
+        </div>
+
+    </div>
+<div class="safety-learning">
+    <h2>Safety Learning Resources</h2>
+    <p>Explore educational lessons about general health and safety.</p>
+    <div id="safetyEducationalContent">
+        Loading safety resources...
+    </div>
+</div>
+    <div class="safety-grid">
+
+        <div class="safety-card">
+            <div class="feature-icon">⚠️</div>
+            <h3>Drug Allergies</h3>
+            <p>
+                Allergy history should be checked before medication
+                use. An unknown allergy history requires appropriate
+                professional assessment.
+            </p>
+        </div>
+
+        <div class="safety-card">
+            <div class="feature-icon">🔬</div>
+            <h3>Kidney & Liver Health</h3>
+            <p>
+                Kidney and liver conditions can affect how medicines
+                are handled by the body. A healthcare professional
+                must review relevant medical information.
+            </p>
+        </div>
+
+        <div class="safety-card">
+            <div class="feature-icon">💊</div>
+            <h3>Medication Interactions</h3>
+            <p>
+                Prescription medicines, over-the-counter products
+                and supplements may interact. A pharmacist can
+                review the complete medication list.
+            </p>
+        </div>
+
+        <div class="safety-card">
+            <div class="feature-icon">👶</div>
+            <h3>Pediatric Safety</h3>
+            <p>
+                Children require age-appropriate professional
+                assessment. Never assume that adult medication
+                instructions apply to children.
+            </p>
+        </div>
+
+        <div class="safety-card">
+            <div class="feature-icon">🤰</div>
+            <h3>Special Health Situations</h3>
+            <p>
+                Pregnancy, breastfeeding and other special health
+                circumstances require individual professional advice.
+            </p>
+        </div>
+
+        <div class="safety-card">
+            <div class="feature-icon">📋</div>
+            <h3>Prescription Verification</h3>
+            <p>
+                Always verify the medicine, formulation, prescription
+                instructions and patient details with a qualified
+                healthcare professional.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="emergency-notice">
+
+        <h2>🚨 Emergency Information</h2>
+
+        <p>
+            If someone develops difficulty breathing, severe swelling,
+            loses consciousness or experiences another serious
+            reaction after taking medication, seek emergency medical
+            assistance immediately.
+        </p>
+
+    </div>
+
+    <div class="safety-disclaimer">
+
+        <h3>Important Disclaimer</h3>
+
+        <p>
+            DrugDose is an educational prototype, not a medical
+            decision-making system. Its safety information is not
+            a substitute for clinical assessment, verified drug
+            references or professional medical advice.
+        </p>
+
+    </div>
+
+</section>
+
+
+        <!-- RESOURCES PAGE -->
+
+        
+<!-- RESOURCES PAGE -->
+
+<section id="resources" class="page">
+
+    <div class="page-heading">
+        <span class="tag">LEARNING CENTER</span>
+        <h1>Medical Resources</h1>
+        <p>Explore established sources of medical and medicine information.</p>
+    </div>
+
+    <div class="resource-grid">
+        
+<div class="resource-learning">
+    <h2>DrugDose Learning Library</h2>
+    <p>Explore general health education and medication safety lessons.</p>
+
+    <div id="resourceEducationalContent">
+        Loading educational resources...
+    </div>
+</div>
+
+
+        <div class="resource-card">
+            <div class="feature-icon">🌍</div>
+            <h3>World Health Organization</h3>
+            <p>Global public-health information and guidance.</p>
+            <a href="https://www.who.int/" target="_blank" rel="noopener noreferrer">
+                Visit WHO →
+            </a>
+        </div>
+
+        <div class="resource-card">
+            <div class="feature-icon">🏥</div>
+            <h3>MedlinePlus</h3>
+            <p>Easy-to-understand health and medicine information.</p>
+            <a href="https://medlineplus.gov/" target="_blank" rel="noopener noreferrer">
+                Visit MedlinePlus →
+            </a>
+        </div>
+
+        <div class="resource-card">
+            <div class="feature-icon">💊</div>
+            <h3>NHS Medicines</h3>
+            <p>Public information about medicines and their use.</p>
+            <a href="https://www.nhs.uk/medicines/" target="_blank" rel="noopener noreferrer">
+                Visit NHS →
+            </a>
+        </div>
+
+        <div class="resource-card">
+            <div class="feature-icon">🔬</div>
+            <h3>DailyMed</h3>
+            <p>Official US medicine labeling information.</p>
+            <a href="https://dailymed.nlm.nih.gov/" target="_blank" rel="noopener noreferrer">
+                Visit DailyMed →
+            </a>
+        </div>
+
+    </div>
+
+    <div class="resource-disclaimer">
+        <h3>Important Note</h3>
+        <p>
+            These links are educational references. DrugDose does not
+            independently verify or interpret their content. Always
+            consult a qualified healthcare professional for medical decisions.
+        </p>
+    </div>
+
+</section>
+
+
+<!-- PRIVACY NOTICE PAGE -->
+<section id="privacy" class="page">
+    <div class="page-heading">
+        <h1>Privacy Notice</h1>
+        <p>Your privacy matters.</p>
+    </div>
+
+    <div class="calculator-card">
+        <h2>1. Information You Enter</h2>
+        <p>
+            DrugDose is an educational prototype. Do not enter real
+            patient details, personal health information, or private data.
+        </p>
+
+        <h2>2. Data Storage</h2>
+        <p>
+            The current prototype does not intentionally save or submit
+            calculator form information to a medical database.
+        </p>
+
+        <h2>3. External Websites</h2>
+        <p>
+            Some resources may open external websites. Their privacy
+            practices are governed by their own policies.
+        </p>
+
+        <h2>4. Future Updates</h2>
+        <p>
+            Any future data collection or account features must include
+            appropriate privacy and security protections.
+        </p>
+    </div>
+</section>
+
+<!-- MEDICAL DISCLAIMER PAGE -->
+<section id="disclaimer" class="page">
+    <div class="page-heading">
+        <h1>Medical Disclaimer</h1>
+        <p>Important information before using DrugDose.</p>
+    </div>
+
+    <div class="calculator-card">
+        <h2>Educational Purpose Only</h2>
+        <p>
+            DrugDose is an educational project. It is not a medical
+            device, pharmacy service, or healthcare provider.
+        </p>
+
+        <h2>No Dose Recommendations</h2>
+        <p>
+            This prototype does not calculate, recommend, verify,
+            or prescribe medication doses.
+        </p>
+
+        <h2>Professional Guidance</h2>
+        <p>
+            Always consult a qualified doctor or pharmacist about
+            medicines, allergies, interactions, and treatment decisions.
+        </p>
+
+        <h2>Emergency Situations</h2>
+        <p>
+            For urgent medical concerns, contact local emergency
+            services or seek immediate professional medical help.
+        </p>
+    </div>
+</section>
+
+
+<!-- ABOUT DRUGDOSE PAGE -->
+<section id="about" class="page">
+    <div class="page-heading">
+        <h1>About DrugDose</h1>
+        <p>Learn about our purpose and vision.</p>
+    </div>
+
+    <div class="calculator-card">
+        <h2>Our Mission</h2>
+        <p>
+            DrugDose is an educational platform designed to make
+            medication-related learning and general safety information
+            easier to understand.
+        </p>
+
+        <h2>Our Vision</h2>
+        <p>
+            We aim to organize educational resources, medicine safety
+            topics, and useful learning tools in one accessible place.
+        </p>
+
+        <h2>Our Commitment</h2>
+        <p>
+            We aim to present information clearly and responsibly.
+            DrugDose does not replace doctors, pharmacists, or
+            professional medical guidance.
+        </p>
+    </div>
+</section>
+
+
+<!-- FAQ PAGE -->
+<section id="faq" class="page">
+    <div class="page-heading">
+        <h1>Frequently Asked Questions</h1>
+        <p>Common questions about DrugDose.</p>
+    </div>
+
+    <div class="calculator-card faq-container">
+
+        <details>
+            <summary>What is DrugDose?</summary>
+            <p>DrugDose is an educational platform for medication-related learning and safety information.</p>
+        </details>
+
+        <details>
+            <summary>Does DrugDose calculate medication doses?</summary>
+            <p>No. The current prototype does not calculate or recommend medication doses.</p>
+        </details>
+
+        <details>
+            <summary>Can I use DrugDose instead of a doctor?</summary>
+            <p>No. Always consult a qualified healthcare professional for medical decisions.</p>
+        </details>
+
+        <details>
+            <summary>Is DrugDose free?</summary>
+            <p>The current educational prototype is free to explore.</p>
+        </details>
+
+        <details>
+            <summary>Does DrugDose store my medical information?</summary>
+            <p>The current prototype does not intentionally save or submit calculator information to a medical database. Do not enter real patient information.</p>
+        </details>
+
+        <details>
+            <summary>Can I use DrugDose for educational purposes?</summary>
+            <p>Yes. You can explore its educational interface and general learning resources.</p>
+        </details>
+
+    </div>
+</section>
+
+
+    <!-- FOOTER -->
+
+    
+<footer>
+    <div class="footer-brand">✚ DrugDose</div>
+
+    <p>Medical Information & Educational Platform</p>
+
+    <div class="footer-links"><a href="#about" onclick="showPage('about')">About Us</a><a href="#faq" onclick="showPage('faq')">FAQs</a>
+        <a href="#privacy" onclick="showPage('privacy')">Privacy Notice</a>
+        <a href="#disclaimer" onclick="showPage('disclaimer')">Disclaimer</a>
+        <a href="mailto:contact@drugdose.com">Contact</a>
+    </div>
+
+    <p class="footer-warning">
+        DrugDose is an educational prototype, not a medical service.
+        Do not enter real patient information or use this website
+        to determine, recommend, or administer medication doses.
+        Always consult a qualified healthcare professional.
+    </p>
+
+    <p>© 2026 DrugDose. All rights reserved.</p>
+</footer>
+
+
+
+    <script src="script.js"></script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+  import { getFirestore, collection, getDocs }
+from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDI-vDuHfUbxsx1QxIENlDNfbGjBAUrDIY",
+    authDomain: "drugbase-education.firebaseapp.com",
+    projectId: "drugbase-education",
+    storageBucket: "drugbase-education.firebasestorage.app",
+    messagingSenderId: "828480349932",
+    appId: "1:828480349932:web:53394609d708e51991a7c9",
+    measurementId: "G-YJ754NQ3S1"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  
+async function loadEducationalContent() {
+    const container = document.getElementById("educationalContent");
+
+    if (!container) return;
+
+    try {
+        const snapshot = await getDocs(
+            collection(db, "educational_content")
+        );
+
+        container.replaceChildren();
+
+        if (snapshot.empty) {
+            container.textContent = "No educational resources found.";
+            return;
+        }
+
+        snapshot.forEach((docSnap) => {
+    const data = docSnap.data();
+
+            const card = document.createElement("div");
+            card.className = "feature-card";
+
+            const heading = document.createElement("h3");
+            heading.textContent = data.title || "Educational Resource";
+
+            const category = document.createElement("p");
+            category.textContent = data.category || "";
+
+            const description = document.createElement("p");
+            description.textContent = data.description || "";
+
+            const content = document.createElement("p");
+            content.textContent = data.content || "";
+
+            card.append(heading, category, description, content);
+            container.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Firestore error:", error);
+        container.textContent =
+            "Educational resources could not be loaded.";
+    }
+}
+loadEducationalContent();
+
+
+
+const searchInput = document.getElementById("drugSearch");
+const searchButton = document.getElementById("educationalSearchButton");
+const clearButton = document.getElementById("clearEducationalSearch");
+const searchOutput = document.getElementById("drugSearchResult");
+
+async function searchEducationalTopics() {
+    const term = searchInput.value.trim().toLowerCase();
+
+    if (!term) {
+        searchOutput.textContent = "Please enter an educational topic.";
+        return;
+    }
+
+    searchButton.disabled = true;
+    searchOutput.textContent = "Searching educational resources...";
+
+    try {
+        const snapshot = await getDocs(
+            collection(db, "educational_content")
+        );
+
+        const matches = [];
+
+        snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+
+            const searchableText = [
+                data.title,
+                data.category,
+                data.description,
+                data.content
+            ].join(" ").toLowerCase();
+
+            if (searchableText.includes(term)) {
+                matches.push(data);
+            }
+        });
+
+        searchOutput.replaceChildren();
+
+        if (matches.length === 0) {
+            searchOutput.textContent =
+                "No matching educational topics found.";
+            return;
+        }
+
+        matches.forEach((data) => {
+            const card = document.createElement("div");
+            card.className = "feature-card";
+
+            const heading = document.createElement("h3");
+            heading.textContent = data.title || "Educational Resource";
+
+            const category = document.createElement("p");
+            category.textContent = data.category || "";
+
+            const description = document.createElement("p");
+            description.textContent = data.description || "";
+
+            const content = document.createElement("p");
+            content.textContent = data.content || "";
+
+            card.append(heading, category, description, content);
+            searchOutput.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Educational search error:", error);
+        searchOutput.textContent =
+            "Search failed. Please try again.";
+    } finally {
+        searchButton.disabled = false;
+    }
+}
+
+searchButton.addEventListener("click", searchEducationalTopics);
+
+searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        searchEducationalTopics();
+    }
+});
+
+clearButton.addEventListener("click", () => {
+    searchInput.value = "";
+    searchOutput.replaceChildren();
+});
+
+  const analytics = getAnalytics(app);
+  
+async function loadSafetyResources() {
+    const container = document.getElementById("safetyEducationalContent");
+
+    if (!container) return;
+
+    try {
+        const snapshot = await getDocs(
+            collection(db, "educational_content")
+        );
+
+        const safetyCategories = [
+            "Medication Safety",
+            "Health Awareness",
+            "Health Education",
+            "Health Literacy"
+        ];
+
+        container.replaceChildren();
+
+        let count = 0;
+
+        snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+
+            const category = (data.category || "").trim().toLowerCase();
+
+if (!safetyCategories.some(item => item.toLowerCase() === category)) {
+    return;
+}
+
+            const card = document.createElement("div");
+            card.className = "safety-card";
+
+            const heading = document.createElement("h3");
+            heading.textContent = data.title || "Safety Resource";
+
+            const description = document.createElement("p");
+            description.textContent = data.description || "";
+
+            const content = document.createElement("p");
+            content.textContent = data.content || "";
+
+            card.append(heading, description, content);
+            container.appendChild(card);
+
+            count++;
+        });
+
+        if (count === 0) {
+            container.textContent = "No safety resources found.";
+        }
+
+    } catch (error) {
+        console.error("Safety resources error:", error);
+        container.textContent =
+            "Safety resources could not be loaded.";
+    }
+}
+
+loadSafetyResources();
+
+async function loadResourceLessons() {
+    const container = document.getElementById("resourceEducationalContent");
+
+    if (!container) return;
+
+    try {
+        const snapshot = await getDocs(
+            collection(db, "educational_content")
+        );
+
+        container.replaceChildren();
+
+        if (snapshot.empty) {
+            container.textContent = "No educational resources found.";
+            return;
+        }
+
+        snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+
+            const card = document.createElement("div");
+            card.className = "resource-card";
+
+            const heading = document.createElement("h3");
+            heading.textContent = data.title || "Learning Resource";
+
+            const category = document.createElement("p");
+            category.textContent = data.category || "";
+
+            const description = document.createElement("p");
+            description.textContent = data.description || "";
+
+            const content = document.createElement("p");
+            content.textContent = data.content || "";
+
+            card.append(heading, category, description, content);
+            container.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Resource loading error:", error);
+        container.textContent = "Resources could not be loaded.";
+    }
+}
+
+loadResourceLessons();
+
+async function loadHomeResources() {
+    const container = document.getElementById("homeEducationalContent");
+
+    if (!container) return;
+
+    try {
+        const snapshot = await getDocs(
+            collection(db, "educational_content")
+        );
+
+        container.replaceChildren();
+
+        let count = 0;
+
+        snapshot.forEach((docSnap) => {
+            if (count >= 4) return;
+
+            const data = docSnap.data();
+
+            const card = document.createElement("div");
+            card.className = "feature-card";
+
+            const heading = document.createElement("h3");
+            heading.textContent = data.title || "Learning Resource";
+
+            const description = document.createElement("p");
+            description.textContent = data.description || "";
+
+            card.append(heading, description);
+            container.appendChild(card);
+
+            count++;
+        });
+
+        if (count === 0) {
+            container.textContent = "No learning resources available.";
+        }
+
+    } catch (error) {
+        console.error("Home resources error:", error);
+        container.textContent = "Resources could not be loaded.";
+    }
+}
+
+loadHomeResources();
+
+
+</script>
+
+</body>
+</html>
