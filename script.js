@@ -1,62 +1,20 @@
 
 "use strict";
 
-// =============================================
-// DRUGDOSE - CORRECTED EDUCATIONAL SCRIPT
-// =============================================
+// =======================================
+// DRUGDOSE - STUDY & LEARNING PLATFORM
+// =======================================
 
-// 1. BASIC HELPERS
-// ---------------------------------------------
-
+// PAGE NAVIGATION
 function getElement(id) {
     return document.getElementById(id);
 }
-
-function readValue(id) {
-    const element = getElement(id);
-    return element ? String(element.value || "").trim() : "";
-}
-
-function showMessage(element, message) {
-    if (!element) return;
-
-    element.textContent = message;
-    element.classList.remove("hidden");
-}
-
-function createTextElement(tag, text, parent) {
-    const element = document.createElement(tag);
-    element.textContent = text;
-    parent.appendChild(element);
-    return element;
-}
-
-function addList(parent, items) {
-    const list = document.createElement("ul");
-
-    items.forEach(item => {
-        createTextElement("li", item, list);
-    });
-
-    parent.appendChild(list);
-    return list;
-}
-
-function showNotice(element, message) {
-    if (!element) return;
-
-    element.textContent = message;
-    element.classList.remove("hidden");
-}
-
-// 2. PAGE NAVIGATION
-// ---------------------------------------------
 
 function showPage(pageId) {
     const pages = document.querySelectorAll("main .page");
     const target = getElement(pageId);
 
-    if (!target || !target.classList.contains("page")) {
+    if (!target) {
         console.warn("Page not found:", pageId);
         return;
     }
@@ -65,18 +23,14 @@ function showPage(pageId) {
         page.classList.toggle("active", page.id === pageId);
     });
 
-    document.querySelectorAll("#navigation a").forEach(link => {
+    document.querySelectorAll("#navigation a[data-page]").forEach(link => {
         link.classList.toggle(
             "active",
-            link.getAttribute("data-page") === pageId
+            link.dataset.page === pageId
         );
     });
 
-    const navigation = getElement("navigation");
-
-    if (navigation) {
-        navigation.classList.remove("open");
-    }
+    closeMenu();
 
     window.scrollTo({
         top: 0,
@@ -84,753 +38,469 @@ function showPage(pageId) {
     });
 }
 
+// SIDE MENU
 function toggleMenu() {
-    const navigation = getElement("navigation");
+    const menu = getElement("navigation");
+    const overlay = getElement("menuOverlay");
+    const openButton = getElement("menuOpen");
 
-    if (navigation) {
-        navigation.classList.toggle("open");
+    if (!menu) return;
+
+    const isOpen = menu.classList.toggle("open");
+
+    if (overlay) {
+        overlay.classList.toggle("visible", isOpen);
+    }
+
+    if (openButton) {
+        openButton.setAttribute("aria-expanded", String(isOpen));
     }
 }
 
-// 3. CATEGORY SELECTION
-// ---------------------------------------------
+function closeMenu() {
+    const menu = getElement("navigation");
+    const overlay = getElement("menuOverlay");
+    const openButton = getElement("menuOpen");
 
-let currentDoseCategory = "adult";
+    if (menu) menu.classList.remove("open");
+    if (overlay) overlay.classList.remove("visible");
 
-function selectCategory(category) {
-    currentDoseCategory =
-        category === "child" ? "pediatric" : "adult";
-
-    const learningCategory = getElement("learningCategory");
-    const adultTab = getElement("adultTab");
-    const childTab = getElement("childTab");
-
-    if (learningCategory) {
-        learningCategory.value = currentDoseCategory;
-    }
-
-    if (adultTab) {
-        adultTab.classList.toggle(
-            "selected",
-            currentDoseCategory === "adult"
-        );
-    }
-
-    if (childTab) {
-        childTab.classList.toggle(
-            "selected",
-            currentDoseCategory === "pediatric"
-        );
+    if (openButton) {
+        openButton.setAttribute("aria-expanded", "false");
     }
 }
 
-function selectDoseCategory(category) {
-    selectCategory(category);
-}
+// STUDY PROGRAM
+let currentStudyTopic = "";
 
-// 4. LEARNING TOPICS
-// ---------------------------------------------
+const studyCategories = {
+    videos: {
+        title: "Video Lectures",
+        description: "Find topic-related educational videos and lectures.",
+        links: [
+            {
+                name: "YouTube — Topic Videos",
+                url: "https://www.youtube.com/results?search_query="
+            },
+            {
+                name: "Khan Academy",
+                url: "https://www.khanacademy.org/search?page_search_query="
+            },
+            {
+                name: "MIT OpenCourseWare",
+                url: "https://ocw.mit.edu/search/?q="
+            }
+        ]
+    },
 
-function initializeLearningTopics() {
-    const topic = getElement("learningTopic");
+    research: {
+        title: "Research Papers",
+        description: "Explore academic papers and scholarly publications.",
+        links: [
+            {
+                name: "Google Scholar",
+                url: "https://scholar.google.com/scholar?q="
+            },
+            {
+                name: "PubMed",
+                url: "https://pubmed.ncbi.nlm.nih.gov/?term="
+            },
+            {
+                name: "DOAJ Open Access Journals",
+                url: "https://doaj.org/search/articles/"
+            },
+            {
+                name: "CORE Research",
+                url: "https://core.ac.uk/search?q="
+            }
+        ]
+    },
 
-    if (!topic) return;
+    articles: {
+        title: "Articles",
+        description: "Discover explanations, educational articles and topic guides.",
+        links: [
+            {
+                name: "Google Search — Educational Articles",
+                url: "https://www.google.com/search?q="
+            },
+            {
+                name: "Britannica",
+                url: "https://www.britannica.com/search?query="
+            },
+            {
+                name: "ScienceDaily",
+                url: "https://www.sciencedaily.com/search/?keyword="
+            }
+        ]
+    },
 
-    topic.addEventListener("change", function () {
-        if (topic.value) {
-            console.log("Selected topic:", topic.value);
+    notes: {
+        title: "Notes & Summaries",
+        description: "Find study notes, revision guides and topic summaries.",
+        links: [
+            {
+                name: "Google Search — Study Notes",
+                url: "https://www.google.com/search?q="
+            },
+            {
+                name: "OpenStax Textbooks",
+                url: "https://openstax.org/search?q="
+            },
+            {
+                name: "Khan Academy Lessons",
+                url: "https://www.khanacademy.org/search?page_search_query="
+            }
+        ]
+    },
+
+    questions: {
+        title: "MCQs & Questions",
+        description: "Explore practice questions, quizzes and multiple-choice questions.",
+        links: [
+            {
+                name: "Google Search — MCQs",
+                url: "https://www.google.com/search?q="
+            },
+            {
+                name: "Quizizz",
+                url: "https://quizizz.com/search/"
+            },
+            {
+                name: "Khan Academy Practice",
+                url: "https://www.khanacademy.org/search?page_search_query="
+            }
+        ]
+    },
+
+    experiments: {
+        title: "Experiments & Practicals",
+        description: "Explore demonstrations, simulations and practical learning.",
+        links: [
+            {
+                name: "YouTube — Practical Demonstrations",
+                url: "https://www.youtube.com/results?search_query="
+            },
+            {
+                name: "PhET Interactive Simulations",
+                url: "https://phet.colorado.edu/en/simulations/filter?subjects="
+            },
+            {
+                name: "Science Buddies",
+                url: "https://www.sciencebuddies.org/search?query="
+            }
+        ]
+    },
+
+    medicine: {
+        title: "Medicine Education",
+        description: "Find general medicine and health education resources. These links are for learning, not personal treatment decisions.",
+        links: [
+            {
+                name: "MedlinePlus — Medicine Information",
+                url: "https://medlineplus.gov/druginformation.html"
+            },
+            {
+                name: "NHS — Medicines",
+                url: "https://www.nhs.uk/medicines/"
+            },
+            {
+                name: "DailyMed — Medicine Labels",
+                url: "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query="
+            },
+            {
+                name: "WHO — Health Topics",
+                url: "https://www.who.int/health-topics"
+            },
+            {
+                name: "PubMed — Medical Research",
+                url: "https://pubmed.ncbi.nlm.nih.gov/?term="
+            }
+        ]
+    }
+};
+
+function searchStudyTopic() {
+    const input = getElement("studyTopic");
+    const message = getElement("studyMessage");
+
+    if (!input) return;
+
+    const topic = input.value.trim();
+
+    if (!topic) {
+        if (message) {
+            message.textContent = "Please enter a topic first.";
+            message.classList.remove("hidden");
         }
-    });
-}
-
-function showDoseLesson() {
-    const topic = getElement("doseTopic");
-    const result = getElement("doseLessonResult");
-
-    if (!topic || !result) return;
-
-    const lessons = {
-        units: {
-            title: "Dose Units Explained",
-            text:
-                "mg means milligram, mcg means microgram, " +
-                "g means gram and mL means millilitre. " +
-                "Mass and volume are different measurements."
-        },
-
-        measurements: {
-            title: "Medicine Measurements",
-            text:
-                "Liquid medicines have a labelled concentration. " +
-                "Concentration information is necessary for " +
-                "understanding medicine measurements."
-        },
-
-        labels: {
-            title: "Understanding Medicine Labels",
-            text:
-                "Medicine labels contain the active ingredient, " +
-                "strength, formulation, expiry date and warnings."
-        },
-
-        frequency: {
-            title: "Understanding Dose Frequency",
-            text:
-                "Frequency describes how often a medicine is used. " +
-                "Follow the instructions of a qualified professional."
-        },
-
-        safety: {
-            title: "Medication Safety Checks",
-            text:
-                "Check medicine identity, expiry date, allergies, " +
-                "warnings and storage instructions."
-        },
-
-        professional: {
-            title: "Professional Dose Verification",
-            text:
-                "Healthcare professionals verify medication instructions " +
-                "using authoritative clinical references."
-        }
-    };
-
-    const lesson = lessons[topic.value];
-
-    result.replaceChildren();
-
-    createTextElement(
-        "h3",
-        lesson ? lesson.title : "Select a topic first",
-        result
-    );
-
-    createTextElement(
-        "p",
-        lesson
-            ? lesson.text
-            : "Please select an educational topic.",
-        result
-    );
-
-    if (lesson) {
-        createTextElement(
-            "p",
-            "Category: " +
-            (currentDoseCategory === "adult"
-                ? "Adult Health Education"
-                : "Pediatric Health Education"),
-            result
-        );
-    }
-
-    result.classList.remove("hidden");
-}
-
-// 5. DRUG LIBRARY
-// ---------------------------------------------
-
-function selectLibraryCategory(category) {
-    const selected = getElement("selectedCategory");
-
-    if (!selected) return;
-
-    const topics = {
-        "General Information":
-            "General medicine and health information.",
-
-        "Uses & Purposes":
-            "Educational information about medicine uses.",
-
-        "Warnings & Precautions":
-            "Medicine warnings and safety precautions.",
-
-        "Side Effects":
-            "General medicine side-effect information.",
-
-        "Interactions":
-            "Why healthcare professionals check medicine interactions.",
-
-        "Storage Information":
-            "General medicine storage information."
-    };
-
-    selected.textContent =
-        topics[category] ||
-        "Explore educational medicine resources.";
-}
-
-// 6. PATIENT INFORMATION
-// ---------------------------------------------
-
-function getPatientInformation() {
-    return {
-        name: readValue("patientName"),
-        sex: readValue("patientSex"),
-        category: readValue("patientCategory"),
-        age: readValue("patientAge"),
-        ageUnit: readValue("ageUnit"),
-        weight: readValue("weight"),
-        height: readValue("height"),
-        condition: readValue("condition"),
-        symptoms: readValue("symptoms"),
-        medicalHistory: readValue("medicalHistory"),
-        drug: readValue("drug"),
-        strength: readValue("drugStrength"),
-        form: readValue("drugForm"),
-        allergy: readValue("allergy"),
-        kidney: readValue("kidney"),
-        liver: readValue("liver"),
-        otherMeds: readValue("otherMeds")
-    };
-}
-
-// 7. PATIENT VALIDATION
-// ---------------------------------------------
-
-function validatePatient(patient) {
-    const errors = [];
-
-    const age = Number(patient.age);
-    const weight = Number(patient.weight);
-    const height = Number(patient.height);
-
-    if (!patient.category) {
-        errors.push("Select patient category.");
-    }
-
-    if (
-        !patient.age ||
-        !Number.isFinite(age) ||
-        age <= 0
-    ) {
-        errors.push("Enter a valid age.");
-    }
-
-    if (!patient.ageUnit) {
-        errors.push("Select age unit.");
-    }
-
-    if (
-        !patient.weight ||
-        !Number.isFinite(weight) ||
-        weight <= 0
-    ) {
-        errors.push("Enter a valid weight in kg.");
-    }
-
-    if (
-        patient.height &&
-        (!Number.isFinite(height) || height <= 0)
-    ) {
-        errors.push("Enter a valid height.");
-    }
-
-    if (!patient.drug) {
-        errors.push("Enter medicine name.");
-    }
-
-    if (!patient.sex) {
-        errors.push("Select patient sex.");
-    }
-
-    if (!patient.allergy) {
-        errors.push("Select allergy status.");
-    }
-
-    if (!patient.kidney) {
-        errors.push("Select kidney function status.");
-    }
-
-    if (!patient.liver) {
-        errors.push("Select liver function status.");
-    }
-
-    return errors;
-}
-
-// 8. AGE CATEGORY CHECK
-// ---------------------------------------------
-
-function getAgeInYears(patient) {
-    const age = Number(patient.age);
-    const unit = patient.ageUnit.toLowerCase();
-
-    if (unit.includes("month")) {
-        return age / 12;
-    }
-
-    if (unit.includes("day")) {
-        return age / 365.25;
-    }
-
-    return age;
-}
-
-function checkAgeCategory(patient) {
-    const age = getAgeInYears(patient);
-    const category = patient.category.toLowerCase();
-
-    if (
-        category === "adult" &&
-        age < 18
-    ) {
-        return "Age/category mismatch: professional verification required.";
-    }
-
-    if (
-        (category === "pediatric" || category === "child") &&
-        age >= 18
-    ) {
-        return "Age/category mismatch: professional verification required.";
-    }
-
-    return "Age/category information recorded; this does not confirm dose eligibility.";
-}
-
-// 9. CLINICAL SAFETY REVIEW
-// ---------------------------------------------
-
-function runDrugSafetyReview(patient) {
-    const issues = [];
-    const checks = [];
-
-    if (!patient.condition) {
-        issues.push("Medical condition is missing.");
-    } else {
-        checks.push("Medical condition has been entered.");
-    }
-
-    if (!patient.medicalHistory) {
-        issues.push("Medical history is missing.");
-    } else {
-        checks.push("Medical history has been entered.");
-    }
-
-    if (!patient.strength) {
-        issues.push("Medicine strength is missing.");
-    } else {
-        checks.push("Medicine strength has been entered.");
-    }
-
-    if (!patient.form) {
-        issues.push("Medicine formulation is missing.");
-    } else {
-        checks.push("Medicine formulation has been entered.");
-    }
-
-    if (patient.allergy !== "None known") {
-        issues.push("Allergy status requires professional review.");
-    } else {
-        checks.push("No known allergy has been reported; this is not independent verification.");
-    }
-
-    if (patient.kidney !== "Documented normal") {
-        issues.push("Kidney function requires professional review.");
-    } else {
-        checks.push("Kidney status is recorded as normal; verify supporting clinical records.");
-    }
-
-    if (patient.liver !== "Documented normal") {
-        issues.push("Liver function requires professional review.");
-    } else {
-        checks.push("Liver status is recorded as normal; verify supporting clinical records.");
-    }
-
-    if (patient.otherMeds) {
-        issues.push("Other medicines must be checked for possible interactions.");
-    } else {
-        issues.push("Other medicine information is missing; interaction review is incomplete.");
-    }
-
-    const ageCheck = checkAgeCategory(patient);
-
-    if (ageCheck.startsWith("Age/category mismatch")) {
-        issues.push(ageCheck);
-    } else {
-        checks.push(ageCheck);
-    }
-
-    return {
-        status: issues.length > 0
-            ? "Professional review required"
-            : "Information checklist completed — clinical approval not established",
-
-        issues,
-        checks
-    };
-}
-
-// 10. DOSE CALCULATION STATUS
-// ---------------------------------------------
-
-function calculateDrugDose(patient, drugName) {
-    if (!patient || !drugName) {
-        return {
-            success: false,
-            message: "Patient information and medicine name are required."
-        };
-    }
-
-    return {
-        success: false,
-        message:
-            "No validated medicine-specific clinical rules are connected. " +
-            "No patient-specific dose or medicine suitability can be established."
-    };
-}
-
-function displayDrugDoseResult(patient, drugName, output) {
-    const section = document.createElement("section");
-    section.className = "result";
-
-    createTextElement(
-        "h3",
-        "Dose Calculation Status",
-        section
-    );
-
-    const calculation = calculateDrugDose(patient, drugName);
-
-    createTextElement(
-        "p",
-        calculation.message,
-        section
-    );
-
-    createTextElement(
-        "p",
-        "Dose suitability: Not established.",
-        section
-    );
-
-    createTextElement(
-        "p",
-        "A qualified healthcare professional must verify any treatment instructions.",
-        section
-    );
-
-    output.appendChild(section);
-}
-
-// 11. MEDICINE REFERENCES
-// ---------------------------------------------
-
-function addMedicineReferences(drugName, output) {
-    createTextElement(
-        "h3",
-        "Medicine Information References",
-        output
-    );
-
-    const query = encodeURIComponent(drugName);
-
-    const references = [
-        {
-            label: "DailyMed — Search medicine labels",
-            url:
-                "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=" +
-                query
-        },
-        {
-            label: "MedlinePlus — Drug information",
-            url: "https://medlineplus.gov/druginformation.html"
-        },
-        {
-            label: "NHS — Medicines",
-            url: "https://www.nhs.uk/medicines/"
-        }
-    ];
-
-    references.forEach(reference => {
-        const paragraph = document.createElement("p");
-        const link = document.createElement("a");
-
-        link.href = reference.url;
-        link.textContent = reference.label;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-
-        paragraph.appendChild(link);
-        output.appendChild(paragraph);
-    });
-}
-
-// 12. MAIN PATIENT REVIEW
-// ---------------------------------------------
-
-function reviewPatientInfo(event) {
-    if (event) {
-        event.preventDefault();
-    }
-
-    const form = getElement("patientForm");
-    const result = getElement("result");
-
-    if (!form || !result) return;
-
-    if (!form.reportValidity()) return;
-
-    const patient = getPatientInformation();
-    const errors = validatePatient(patient);
-
-    result.replaceChildren();
-
-    if (errors.length > 0) {
-        createTextElement(
-            "h3",
-            "Please correct these details:",
-            result
-        );
-
-        addList(result, errors);
-        result.classList.remove("hidden");
+        input.focus();
         return;
     }
 
-    const safetyReview = runDrugSafetyReview(patient);
+    currentStudyTopic = topic;
 
-    createTextElement(
-        "h2",
-        "DrugDose Medication Safety Report",
-        result
-    );
-
-    createTextElement(
-        "p",
-        "Educational prototype — not a prescribing system.",
-        result
-    );
-
-    createTextElement(
-        "h3",
-        "Patient Information",
-        result
-    );
-
-    addList(result, [
-        "Patient identifier: " + (patient.name || "Not provided"),
-        "Sex: " + patient.sex,
-        "Category: " + patient.category,
-        "Age: " + patient.age + " " + patient.ageUnit,
-        "Weight: " + patient.weight + " kg",
-        "Height: " + (patient.height || "Not provided"),
-        "Condition: " + (patient.condition || "Not provided"),
-        "Symptoms: " + (patient.symptoms || "Not provided"),
-        "Medical history: " +
-            (patient.medicalHistory || "Not provided")
-    ]);
-
-    createTextElement(
-        "h3",
-        "Medicine Information",
-        result
-    );
-
-    addList(result, [
-        "Medicine: " + patient.drug,
-        "Strength: " + (patient.strength || "Not provided"),
-        "Form: " + (patient.form || "Not provided")
-    ]);
-
-    createTextElement(
-        "h3",
-        "Clinical Safety Review",
-        result
-    );
-
-    addList(result, [
-        "Allergy status: " + patient.allergy,
-        "Kidney function: " + patient.kidney,
-        "Liver function: " + patient.liver,
-        "Other medicines: " + (patient.otherMeds || "Not provided")
-    ]);
-
-    createTextElement(
-        "h3",
-        "Completed Information Checks",
-        result
-    );
-
-    if (safetyReview.checks.length > 0) {
-        addList(result, safetyReview.checks);
-    } else {
-        createTextElement(
-            "p",
-            "No checks could be completed.",
-            result
-        );
+    if (message) {
+        message.textContent =
+            "Topic saved: " + topic +
+            ". Now choose a learning category below.";
+        message.classList.remove("hidden");
     }
-
-    createTextElement(
-        "h3",
-        "Warnings Requiring Review",
-        result
-    );
-
-    if (safetyReview.issues.length > 0) {
-        addList(result, safetyReview.issues);
-    } else {
-        createTextElement(
-            "p",
-            "No missing checklist items were detected. This does not mean the medicine is safe or approved.",
-            result
-        );
-    }
-
-    createTextElement(
-        "p",
-        "Checklist status: " + safetyReview.status,
-        result
-    );
-
-    displayDrugDoseResult(
-        patient,
-        patient.drug,
-        result
-    );
-
-    addMedicineReferences(patient.drug, result);
-
-    createTextElement(
-        "p",
-        "DEMO ONLY: Do not enter real patient information. " +
-        "This educational prototype does not diagnose, prescribe, " +
-        "calculate or approve treatment.",
-        result
-    );
-
-    result.classList.remove("hidden");
-
-    result.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
 }
 
-// 13. MEDICINE UNIT CONVERTER
-// ---------------------------------------------
+function startHomeSearch() {
+    const input = getElement("homeTopic");
 
-function convertMedicineUnits() {
-    const input =
-        getElement("conversionValue") ||
-        getElement("unitAmount");
+    if (!input) return;
 
-    const unit =
-        getElement("conversionUnit") ||
-        getElement("fromUnit");
+    const topic = input.value.trim();
 
-    const output =
-        getElement("conversionResult") ||
-        getElement("unitResult");
+    if (!topic) {
+        input.focus();
+        return;
+    }
 
-    if (!input || !unit || !output) return;
+    currentStudyTopic = topic;
+
+    const studyInput = getElement("studyTopic");
+    if (studyInput) studyInput.value = topic;
+
+    showPage("study");
+
+    const message = getElement("studyMessage");
+
+    if (message) {
+        message.textContent =
+            "Your topic is ready. Select a category to explore resources.";
+        message.classList.remove("hidden");
+    }
+}
+
+function openStudyCategory(categoryKey) {
+    const category = studyCategories[categoryKey];
+
+    if (!category) return;
+
+    const input = getElement("studyTopic");
+
+    if (input && input.value.trim()) {
+        currentStudyTopic = input.value.trim();
+    }
+
+    if (!currentStudyTopic) {
+        const message = getElement("studyMessage");
+
+        if (message) {
+            message.textContent =
+                "First enter a topic, then choose a category.";
+            message.classList.remove("hidden");
+        }
+
+        showPage("study");
+        if (input) input.focus();
+        return;
+    }
+
+    getElement("categoryTitle").textContent = category.title;
+    getElement("categoryDescription").textContent = category.description;
+    getElement("categoryTopicHeading").textContent = "Topic: " + currentStudyTopic;
+    getElement("categoryTopic").textContent =
+        "Explore resources related to: " + currentStudyTopic;
+
+    const container = getElement("categoryLinks");
+    container.replaceChildren();
+
+    category.links.forEach((item, index) => {
+        const card = document.createElement("article");
+        card.className = "link-card";
+
+        const number = document.createElement("span");
+        number.className = "link-number";
+        number.textContent = String(index + 1).padStart(2, "0");
+
+        const details = document.createElement("div");
+        details.className = "link-details";
+
+        const heading = document.createElement("h3");
+        heading.textContent = item.name;
+
+        const description = document.createElement("p");
+        description.textContent =
+            "Search for " + currentStudyTopic + " on " + item.name + ".";
+
+        details.append(heading, description);
+
+        const link = document.createElement("a");
+        link.className = "open-link";
+        link.href = item.url + encodeURIComponent(currentStudyTopic);
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "Open Resource ↗";
+
+        card.append(number, details, link);
+        container.appendChild(card);
+    });
+
+    showPage("category-page");
+}
+
+// GENERAL CALCULATOR
+function getCalculatorDisplay() {
+    return getElement("calcDisplay");
+}
+
+function appendCalculator(value) {
+    const display = getCalculatorDisplay();
+
+    if (!display) return;
+
+    display.value += value;
+
+    const message = getElement("calcMessage");
+    if (message) message.textContent = "";
+}
+
+function clearCalculator() {
+    const display = getCalculatorDisplay();
+    if (display) display.value = "";
+
+    const message = getElement("calcMessage");
+    if (message) message.textContent = "";
+}
+
+function deleteCalculator() {
+    const display = getCalculatorDisplay();
+    if (display) {
+        display.value = display.value.slice(0, -1);
+    }
+}
+
+function calculateResult() {
+    const display = getCalculatorDisplay();
+    const message = getElement("calcMessage");
+
+    if (!display || !display.value.trim()) {
+        if (message) message.textContent = "Enter a calculation first.";
+        return;
+    }
+
+    const expression = display.value;
+
+    // Only allow basic arithmetic characters.
+    if (!/^[0-9+\-*/%.() ]+$/.test(expression)) {
+        if (message) message.textContent = "Invalid calculation.";
+        return;
+    }
+
+    try {
+        // Parse using a restricted arithmetic expression.
+        const result = Function(
+            '"use strict"; return (' + expression + ')'
+        )();
+
+        if (!Number.isFinite(result)) {
+            throw new Error("Invalid result");
+        }
+
+        display.value = String(Number(result.toPrecision(12)));
+
+        if (message) message.textContent = "Calculation completed.";
+    } catch (error) {
+        if (message) message.textContent = "Please check your calculation.";
+    }
+}
+
+// GENERAL MASS CONVERSION
+function showResult(id, text) {
+    const output = getElement(id);
+    if (!output) return;
+
+    output.textContent = text;
+    output.classList.remove("hidden");
+}
+
+function convertMass() {
+    const input = getElement("massValue");
+    const unit = getElement("massUnit");
+
+    if (!input || !unit) return;
 
     const raw = input.value.trim();
     const value = Number(raw);
 
-    if (
-        raw === "" ||
-        !Number.isFinite(value) ||
-        value < 0
-    ) {
-        showNotice(
-            output,
-            "Enter a valid non-negative number."
-        );
+    if (raw === "" || !Number.isFinite(value) || value < 0) {
+        showResult("massResult", "Enter a valid non-negative number.");
         return;
     }
 
-    const factors = {
+    const gramsPerUnit = {
         mcg: 0.000001,
         mg: 0.001,
-        g: 1
+        g: 1,
+        kg: 1000
     };
 
-    const selectedUnit = unit.value;
+    const grams = value * gramsPerUnit[unit.value];
 
-    if (!Object.prototype.hasOwnProperty.call(
-        factors,
-        selectedUnit
-    )) {
-        showNotice(output, "Select mg, mcg or g.");
+    const output = [
+        "Micrograms: " + formatNumber(grams * 1000000) + " mcg",
+        "Milligrams: " + formatNumber(grams * 1000) + " mg",
+        "Grams: " + formatNumber(grams) + " g",
+        "Kilograms: " + formatNumber(grams / 1000) + " kg"
+    ];
+
+    showResult("massResult", output.join(" | "));
+}
+
+// GENERAL VOLUME CONVERSION
+function convertVolume() {
+    const input = getElement("volumeValue");
+    const unit = getElement("volumeUnit");
+
+    if (!input || !unit) return;
+
+    const raw = input.value.trim();
+    const value = Number(raw);
+
+    if (raw === "" || !Number.isFinite(value) || value < 0) {
+        showResult("volumeResult", "Enter a valid non-negative number.");
         return;
     }
 
-    const grams = value * factors[selectedUnit];
-    const milligrams = grams * 1000;
-    const micrograms = milligrams * 1000;
+    const millilitres = unit.value === "l"
+        ? value * 1000
+        : value;
 
-    output.textContent =
-        value + " " + selectedUnit +
-        " = " + Number(milligrams.toPrecision(8)) + " mg" +
-        " = " + Number(micrograms.toPrecision(8)) + " mcg" +
-        " = " + Number(grams.toPrecision(8)) + " g. " +
-        "Mass conversion only; not a patient dose.";
-
-    output.classList.remove("hidden");
+    showResult(
+        "volumeResult",
+        formatNumber(millilitres) + " mL = " +
+        formatNumber(millilitres / 1000) + " L"
+    );
 }
 
-// 14. PRESCRIPTION VALUE REVIEW
-// ---------------------------------------------
+function formatNumber(number) {
+    return Number(number.toPrecision(10)).toLocaleString("en-US", {
+        maximumFractionDigits: 10
+    });
+}
 
-function verifyPrescription() {
-    const doseInput = getElement("prescribedDose");
-    const unitInput = getElement("prescribedUnit");
-    const result = getElement("prescriptionResult");
-
-    if (!doseInput || !unitInput || !result) return;
-
-    const raw = doseInput.value.trim();
-    const dose = Number(raw);
-
-    if (
-        raw === "" ||
-        !Number.isFinite(dose) ||
-        dose <= 0
-    ) {
-        showNotice(
-            result,
-            "Enter a valid positive amount."
-        );
-        return;
+// KEYBOARD SUPPORT
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        closeMenu();
     }
-
-    result.replaceChildren();
-
-    createTextElement(
-        "h3",
-        "Entered Prescription Value",
-        result
-    );
-
-    createTextElement(
-        "p",
-        dose + " " + unitInput.value,
-        result
-    );
-
-    createTextElement(
-        "p",
-        "This value is displayed only. Clinical suitability, accuracy and safety have not been verified.",
-        result
-    );
-
-    result.classList.remove("hidden");
-}
-
-// 15. WEBSITE INITIALIZATION
-// ---------------------------------------------
-
-document.addEventListener("DOMContentLoaded", function () {
-    showPage("home");
-    initializeLearningTopics();
-
-    console.log(
-        "DrugDose educational script loaded successfully."
-    );
 });
 
-// =============================================
-// END OF SCRIPT
-// =============================================
+// INITIALIZATION
+document.addEventListener("DOMContentLoaded", function () {
+    showPage("home");
+
+    const intro = getElement("intro");
+
+    if (intro) {
+        window.setTimeout(function () {
+            intro.classList.add("intro-finished");
+        }, 3200);
+    }
+
+    console.log("DrugDose Study Platform loaded successfully.");
+});
